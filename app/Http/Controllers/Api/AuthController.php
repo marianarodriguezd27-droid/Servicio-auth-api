@@ -14,15 +14,15 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // Validamos que el usuario y la contraseña sean obligatorios.
+        // Validamos que los datos del usuario sean obligatorios.
         $datos = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
 
-        // Creamos el usuario. Laravel aplicará el hash configurado
-        // en el modelo User para proteger la contraseña.
+        // Creamos el usuario. Laravel protege la contraseña
+        // aplicando el hash configurado en el modelo User.
         $usuario = User::create([
             'name' => $datos['name'],
             'email' => $datos['email'],
@@ -41,7 +41,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // Validamos que se reciban el usuario y la contraseña.
+        // Validamos que se reciban el correo electrónico y la contraseña.
         $datos = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
